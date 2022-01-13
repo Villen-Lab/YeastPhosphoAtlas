@@ -1,12 +1,8 @@
 Package: YeastPhosphoAtlas
-Title: An Amazing Shiny App
+Title: Atlas of Yeast Phosphorylation
 Version: 0.0.0.9000
-Authors@R: 
-    person(given = "firstname",
-           family = "lastname",
-           role = c("aut", "cre"),
-           email = "your@email.com")
-Description: What the package does (one paragraph).
+Authors@R: person('Anthony', 'Barente', email = 'valenta4@gmail.com', role = c('cre', 'aut'))
+Description: This is the shiny app for the yeast phospho atlas.
 License: MIT + file LICENSE
 Imports: 
     attempt,
