@@ -20,11 +20,11 @@
 ## 
 golem::fill_desc(
   pkg_name = "YeastPhosphoAtlas", # The Name of the package containing the App 
-  pkg_title = "PKG_TITLE", # The Title of the package containing the App 
-  pkg_description = "PKG_DESC.", # The Description of the package containing the App 
-  author_first_name = "AUTHOR_FIRST", # Your First Name
-  author_last_name = "AUTHOR_LAST", # Your Last Name
-  author_email = "AUTHOR@MAIL.COM", # Your Email
+  pkg_title = "Atlas of Yeast Phosphorylation", # The Title of the package containing the App 
+  pkg_description = "This is the shiny app for the yeast phospho atlas.", # The Description of the package containing the App 
+  author_first_name = "Anthony", # Your First Name
+  author_last_name = "Barente", # Your Last Name
+  author_email = "valenta4@gmail.com", # Your Email
   repo_url = NULL # The URL of the GitHub Repo (optional) 
 )     
 
