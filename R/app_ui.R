@@ -10,7 +10,8 @@ app_ui <- function(request) {
     golem_add_external_resources(),
     # Your application UI logic 
     fluidPage(
-      h1("YeastPhosphoAtlas")
+      titlePanel("Prototype Yeast Phosphorylation Atlas"),
+      mod_expression_profiles_ui("expression_profiles_ui_1")
     )
   )
 }
