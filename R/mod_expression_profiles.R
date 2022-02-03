@@ -9,44 +9,88 @@
 #' @importFrom shiny NS tagList 
 mod_expression_profiles_ui <- function(id){
   ns <- NS(id)
-  sidebarLayout(
-    sidebarPanel(
-      textInput(
-        inputId = ns("protein"),
-        label = "Protein",
-        value = "",
-        width = "200px", 
-        placeholder = NULL
+  fixedPage(
+    fixedRow(
+      column(
+        id="expr-prof-query-panel",
+        textInput(
+          inputId = ns("protein"),
+          label = "Protein",
+          value = "",
+          width = "200px",
+          placeholder = NULL
+        ),
+        selectInput(
+          inputId = ns("site"),
+          label = "Site",
+          choices = list(""),
+          selected = "Select 1",
+          multiple = FALSE,
+          selectize = TRUE,
+          width = "200px",
+          size = NULL
+        ),
+        checkboxGroupInput(
+          inputId = ns("select_treatments"),
+          label = "Select Treatments",
+          choices = c("AA", "MZ", "I3", "I5", "I7", "I8"),
+          selected = c("AA", "MZ", "I3", "I5", "I7", "I8"),
+          inline = FALSE,
+          width = "200px",
+          choiceNames = NULL,
+          choiceValues = NULL
+        ),
+        width=3
       ),
-      selectInput(
-        inputId = ns("site"),
-        label = "Site",
-        choices = list(""),
-        selected = "Select 1",
-        multiple = FALSE,
-        selectize = TRUE,
-        width = "200px",
-        size = NULL
-      ),
-      checkboxGroupInput(
-        inputId = ns("select_treatments"),
-        label = "Select Treatments",
-        choices = c("AA", "MZ", "I3", "I5", "I7", "I8"),
-        selected = c("AA", "MZ", "I3", "I5", "I7", "I8"),
-        inline = FALSE,
-        width = "200px",
-        choiceNames = NULL,
-        choiceValues = NULL
-      )
-    ),
-    mainPanel(
-      plotOutput(
-        outputId = ns("expression_profile"), 
-        width = "100%",
-        height = "400px"
+      column(
+        plotOutput(
+                outputId = ns("expression_profile"),
+                width = "100%",
+                height = "400px"
+              ),
+        width=9
       )
     )
   )
+  # sidebarLayout(
+  #   sidebarPanel(
+  #     textInput(
+  #       inputId = ns("protein"),
+  #       label = "Protein",
+  #       value = "",
+  #       width = "200px", 
+  #       placeholder = NULL
+  #     ),
+  #     selectInput(
+  #       inputId = ns("site"),
+  #       label = "Site",
+  #       choices = list(""),
+  #       selected = "Select 1",
+  #       multiple = FALSE,
+  #       selectize = TRUE,
+  #       width = "200px",
+  #       size = NULL
+  #     ),
+  #     checkboxGroupInput(
+  #       inputId = ns("select_treatments"),
+  #       label = "Select Treatments",
+  #       choices = c("AA", "MZ", "I3", "I5", "I7", "I8"),
+  #       selected = c("AA", "MZ", "I3", "I5", "I7", "I8"),
+  #       inline = FALSE,
+  #       width = "200px",
+  #       choiceNames = NULL,
+  #       choiceValues = NULL
+  #     ),
+  #     width=2
+  #   ),
+  #   mainPanel(
+  #     plotOutput(
+  #       outputId = ns("expression_profile"), 
+  #       width = "100%",
+  #       height = "400px"
+  #     )
+  #   )
+  # )
 }
     
 #' expression_profiles Server Functions

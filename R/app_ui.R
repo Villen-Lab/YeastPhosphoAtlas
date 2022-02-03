@@ -8,10 +8,23 @@ app_ui <- function(request) {
   tagList(
     # Leave this function for adding external resources
     golem_add_external_resources(),
-    # Your application UI logic 
-    fluidPage(
-      titlePanel("Prototype Yeast Phosphorylation Atlas"),
-      mod_expression_profiles_ui("expression_profiles_ui_1")
+    # Your application UI logic
+    navbarPage(
+      "Yeast Phospho Atlas",
+      tabPanel(
+        "Expression Profiles",
+        mod_expression_profiles_ui("expression_profiles_ui_1")
+      ),
+      tabPanel(
+        "Explore Conditions"
+      ),
+      tabPanel(
+        "Raw Data"
+      ),
+      tabPanel(
+        "About"
+      ),
+      collapsible = TRUE
     )
   )
 }
