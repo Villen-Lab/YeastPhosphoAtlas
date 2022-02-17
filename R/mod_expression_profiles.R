@@ -17,7 +17,7 @@ mod_expression_profiles_ui <- function(id){
           inputId = ns("protein"),
           label = "Protein",
           value = "",
-          width = "200px",
+          width = "225px",
           placeholder = NULL
         ),
         selectInput(
@@ -27,70 +27,49 @@ mod_expression_profiles_ui <- function(id){
           selected = "Select 1",
           multiple = FALSE,
           selectize = TRUE,
-          width = "200px",
+          width = "225px",
           size = NULL
         ),
         checkboxGroupInput(
-          inputId = ns("select_treatments"),
-          label = "Select Treatments",
-          choices = c("AA", "MZ", "I3", "I5", "I7", "I8"),
-          selected = c("AA", "MZ", "I3", "I5", "I7", "I8"),
-          inline = FALSE,
-          width = "200px",
+          inputId = ns("select_conditions"),
+          label = "Select Conditions",
+          choices = get_conditions()$code[-1],
+          inline = TRUE,
+          width = "225px",
           choiceNames = NULL,
           choiceValues = NULL
         ),
+        actionButton(inputId = ns("select_all"), 
+                     label = "Select All"),
+        actionButton(inputId = ns("clear_all"), 
+                     label = "Clear All"),
         width=3
       ),
       column(
         plotOutput(
-                outputId = ns("expression_profile"),
-                width = "100%",
-                height = "400px"
-              ),
+          outputId = ns("expression_profile_1"),
+          width = "100%",
+          height = "200px"
+          ),
+        plotOutput(
+          outputId = ns("expression_profile_2"),
+          width = "100%",
+          height = "200px"
+        ),
+        plotOutput(
+          outputId = ns("expression_profile_3"),
+          width = "100%",
+          height = "200px"
+        ),
+        plotOutput(
+          outputId = ns("expression_profile_4"),
+          width = "100%",
+          height = "200px"
+        ),
         width=9
       )
     )
   )
-  # sidebarLayout(
-  #   sidebarPanel(
-  #     textInput(
-  #       inputId = ns("protein"),
-  #       label = "Protein",
-  #       value = "",
-  #       width = "200px", 
-  #       placeholder = NULL
-  #     ),
-  #     selectInput(
-  #       inputId = ns("site"),
-  #       label = "Site",
-  #       choices = list(""),
-  #       selected = "Select 1",
-  #       multiple = FALSE,
-  #       selectize = TRUE,
-  #       width = "200px",
-  #       size = NULL
-  #     ),
-  #     checkboxGroupInput(
-  #       inputId = ns("select_treatments"),
-  #       label = "Select Treatments",
-  #       choices = c("AA", "MZ", "I3", "I5", "I7", "I8"),
-  #       selected = c("AA", "MZ", "I3", "I5", "I7", "I8"),
-  #       inline = FALSE,
-  #       width = "200px",
-  #       choiceNames = NULL,
-  #       choiceValues = NULL
-  #     ),
-  #     width=2
-  #   ),
-  #   mainPanel(
-  #     plotOutput(
-  #       outputId = ns("expression_profile"), 
-  #       width = "100%",
-  #       height = "400px"
-  #     )
-  #   )
-  # )
 }
     
 #' expression_profiles Server Functions
@@ -104,12 +83,31 @@ mod_expression_profiles_server <- function(id){
     # Lookup sites to fill drop down.
     observeEvent(input$protein, {
       load_protein_sites(input, output, session)
-      })
+    })
     
-    # Load expression profile given a choice in site.
-    observe({
-      display_expression_profile(input, output, session)
-      })
+    # Set initial condition checkboxes.
+    observeEvent(input$site, {
+      init_condition_checkboxes(input, output, session)
+    })
+    
+    # Reload expression profile given a choice in conditions.
+    observeEvent(input$select_conditions, {
+      load_expression_profile(input, output, session)
+    })
+    
+    # Reset initial condition checkboxes.
+    observeEvent(input$select_all, {
+      init_condition_checkboxes(input, output, session)
+    })
+    
+    # Clear condition checkboxes
+    observeEvent(input$clear_all, {
+      print("Clearing")
+      updateCheckboxGroupInput(session = session, 
+                               inputId = "select_conditions",
+                               choices = get_conditions()$code[-1],
+                               inline = TRUE)
+    })
     
   })
 }
