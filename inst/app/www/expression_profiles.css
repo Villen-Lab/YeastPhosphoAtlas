@@ -4,5 +4,21 @@
 }
 
 #expr-prof-query-panel .form-group {
-  margin-left: 10%;
+  margin-left: 7%;
+}
+
+#expr-prof-query-panel .checkbox-inline, .radio-inline {
+  margin-left: 0;
+  width: 32%;
+}
+
+#expr-prof-query-panel .shiny-options-group {
+  height: 300px;
+  overflow-y: auto;
+}
+
+#expr-prof-query-panel .action-button {
+  height: 40px;
+  width: 100px;
+  margin-left: 5%;
 }
