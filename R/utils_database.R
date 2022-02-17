@@ -22,6 +22,24 @@ get_db_connection <- function() {
   return(con)
 }
 
+#' Query conditions in database 
+#'
+#' @description Query a dataframe of all conditions within the database.
+#'
+#' @return A table of conditions sorted alphabetically with untreated listed first
+#' @noRd
+get_conditions <- function() {
+  con <- get_db_connection()
+  cond <- DBI::dbGetQuery(con, paste("SELECT code, description",
+                                     "FROM condition"))
+  cond = cond %>%
+           mutate(code = factor(code, levels = union("UT", code))) %>%
+           arrange(code)
+
+  DBI::dbDisconnect(con)
+  return(cond)
+}
+
 #' Query sites on specific protein 
 #'
 #' @description Returns all sites in database associated with a query protein reference.
@@ -58,6 +76,13 @@ get_quants_by_site_id <- function(id) {
                                        "LEFT JOIN condition c ON s.idCondition=c.id",
                                        "WHERE q.idSite = ",
                                        id))
+  condition_levels <- union("UT", 
+                            quants$condition %>%
+                              unique() %>%
+                              sort())
+  quants <- quants %>%
+              mutate(condition = factor(condition, levels=condition_levels))
+  
   DBI::dbDisconnect(con)
   return(quants)
 }

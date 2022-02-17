@@ -9,6 +9,12 @@ test_that("internal database can be connected to", {
                  "site"))
 })
 
+test_that("conditions can be queried", {
+  cond <- get_conditions()
+  expect_equal(as.character(cond$code[1]), "UT")
+  expect_true(!is.unsorted(cond$code))
+})
+
 test_that("protein sites can be queried", {
   sites <- get_sites_by_prot_ref("YHR030C")
   expect_equal(nrow(sites), 7)
