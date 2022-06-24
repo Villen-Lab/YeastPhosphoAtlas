@@ -1,6 +1,14 @@
+#expr-prof-page {
+  width: 1400px;
+}
+
 #expr-prof-query-panel {
   background-color: #f8f8f8;
   padding: 15px 15px;
+}
+
+#expr-prof-query-panel .control-label {
+  font-size: 18px;
 }
 
 #expr-prof-query-panel .form-group {
@@ -10,6 +18,7 @@
 #expr-prof-query-panel .checkbox-inline, .radio-inline {
   margin-left: 0;
   width: 32%;
+  font-size: 16px;
 }
 
 #expr-prof-query-panel .shiny-options-group {
@@ -20,5 +29,23 @@
 #expr-prof-query-panel .action-button {
   height: 40px;
   width: 100px;
-  margin-left: 5%;
+  margin-left: 10%;
+  font-size: 18px;
+}
+
+#expression_profiles_ui_1-title {
+  margin-top: 50px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 30px;
+}
+
+#expression_profiles_ui_1-description {
+  margin-top: 25px;
+  text-align: center;
+  font-size: 24px;
+}
+
+#expr-prof-display-panel .shiny-plot-output {
+  margin-bottom: 15px;
 }

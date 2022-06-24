@@ -1,3 +1,28 @@
+#' Fill in page description
+#'
+#' @param input,output,session Internal parameters for {shiny}..
+#'
+#' @noRd
+write_expression_profiles_description <- function(input, output, session) {
+  output$title <- renderText({ "Phosphosite Expression Profiles" })
+  output$description <-
+    renderText({
+      paste("Welcome to the Yeast Phospho Atlas' phosphosite expression profile page.",
+            "Here you can look up individual sites of interest and view their dynamics",
+            "accross treatements. After entering a SGD accession on the left,",
+            "you may choose a site and set of treatments for your comparison.")})
+}
+
+#' Fill in page description
+#'
+#' @param input,output,session Internal parameters for {shiny}..
+#'
+#' @noRd
+remove_expression_profiles_description <- function(input, output, session) {
+  removeUI("#expression_profiles_ui_1-title")
+  removeUI("#expression_profiles_ui_1-description")
+}
+
 #' Fill protein site dropdown menu
 #'
 #' @param input,output,session Internal parameters for {shiny}..
@@ -20,14 +45,14 @@ load_protein_sites <- function(input, output, session) {
 #'
 #' @noRd
 build_expression_profile <- function(quants) {
-  font_size <- 16
+  font_size <- 20
   plt <- ggplot(quants, aes(x=condition, y=intensityRaw,
                             color=condition == "UT")) +
-           geom_jitter(size = 2, width = .2, alpha=.6) +
            stat_summary(fun = median, fun.min = median, fun.max = median,
-                        geom = "crossbar", width = 0.5, color="#000000") +
+                        geom = "crossbar", width = 0.75, color="#000000") +
+           geom_jitter(size = 3, width = .2, alpha=.6) +
            xlab("Condition") +
-           ylab("Expression Value") +
+           ylab("Expression") +
            scale_color_manual(values = c("#27898c", "#461554")) + 
            theme_bw() +
            theme(axis.text.x = element_text(size=font_size,
@@ -35,7 +60,7 @@ build_expression_profile <- function(quants) {
                                             vjust = 0.5,
                                             hjust=1),
                  axis.text.y = element_text(size=font_size),
-                 axis.title = element_text(size=font_size),
+                 axis.title = element_text(size=font_size+4),
                  legend.position = "none")
   
   return(plt)
@@ -48,6 +73,7 @@ build_expression_profile <- function(quants) {
 #'
 #' @noRd
 render_expression_profile <- function(quants, output) {
+  remove_expression_profiles_description(input, output, session)
   output$expression_profile_1 <- renderPlot({})
   output$expression_profile_2 <- renderPlot({})
   output$expression_profile_3 <- renderPlot({})

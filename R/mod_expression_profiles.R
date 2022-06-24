@@ -10,6 +10,7 @@
 mod_expression_profiles_ui <- function(id){
   ns <- NS(id)
   fixedPage(
+    id="expr-prof-page",
     fixedRow(
       column(
         id="expr-prof-query-panel",
@@ -17,7 +18,7 @@ mod_expression_profiles_ui <- function(id){
           inputId = ns("protein"),
           label = "Protein",
           value = "",
-          width = "225px",
+          width = "275px",
           placeholder = NULL
         ),
         selectInput(
@@ -27,7 +28,7 @@ mod_expression_profiles_ui <- function(id){
           selected = "Select 1",
           multiple = FALSE,
           selectize = TRUE,
-          width = "225px",
+          width = "275px",
           size = NULL
         ),
         checkboxGroupInput(
@@ -35,7 +36,7 @@ mod_expression_profiles_ui <- function(id){
           label = "Select Conditions",
           choices = get_conditions()$code[-1],
           inline = TRUE,
-          width = "225px",
+          width = "275px",
           choiceNames = NULL,
           choiceValues = NULL
         ),
@@ -46,6 +47,9 @@ mod_expression_profiles_ui <- function(id){
         width=3
       ),
       column(
+        id="expr-prof-display-panel",
+        textOutput(outputId = ns("title")),
+        textOutput(outputId = ns("description")),
         plotOutput(
           outputId = ns("expression_profile_1"),
           width = "100%",
@@ -80,26 +84,29 @@ mod_expression_profiles_server <- function(id){
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
     
+    # Write description for user
+    write_expression_profiles_description(input, output, session)
+    
     # Lookup sites to fill drop down.
     observeEvent(input$protein, {
       load_protein_sites(input, output, session)
     })
-    
+
     # Set initial condition checkboxes.
     observeEvent(input$site, {
       init_condition_checkboxes(input, output, session)
     })
-    
+
     # Reload expression profile given a choice in conditions.
     observeEvent(input$select_conditions, {
       load_expression_profile(input, output, session)
     })
-    
+
     # Reset initial condition checkboxes.
     observeEvent(input$select_all, {
       init_condition_checkboxes(input, output, session)
     })
-    
+
     # Clear condition checkboxes
     observeEvent(input$clear_all, {
       print("Clearing")
