@@ -16,7 +16,8 @@ app_ui <- function(request) {
         mod_expression_profiles_ui("expression_profiles_ui_1")
       ),
       tabPanel(
-        "Explore Conditions"
+        "Explore Conditions",
+        mod_explore_conditions_ui("explore_conditions_ui_1")
       ),
       tabPanel(
         "Raw Data"

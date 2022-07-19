@@ -19,7 +19,8 @@ usethis::use_package( "dplyr" )
 
 ## Add modules ----
 ## Create a module infrastructure in R/
-golem::add_module( name = "expression_profiles" ) # Name of the module
+golem::add_module( name = "expression_profiles" )
+golem::add_module( name = "explore_conditions" )
 
 ## Add helper functions ----
 ## Creates fct_* and utils_*
