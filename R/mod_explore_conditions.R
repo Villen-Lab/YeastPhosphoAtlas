@@ -22,7 +22,7 @@ mod_explore_conditions_ui <- function(id){
     
 #' explore_conditions Server Functions
 #'
-#' @noRd 
+#' @noRd
 mod_explore_conditions_server <- function(id){
   moduleServer( id, function(input, output, session){
     ns <- session$ns

@@ -20,7 +20,8 @@ app_ui <- function(request) {
         mod_explore_conditions_ui("explore_conditions_ui_1")
       ),
       tabPanel(
-        "Raw Data"
+        "Raw Data",
+        mod_raw_data_ui("raw_data_ui_1")
       ),
       tabPanel(
         "About"
