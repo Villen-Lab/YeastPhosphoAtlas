@@ -24,7 +24,8 @@ app_ui <- function(request) {
         mod_raw_data_ui("raw_data_ui_1")
       ),
       tabPanel(
-        "About"
+        "About",
+        mod_about_ui("about_ui_1")
       ),
       collapsible = TRUE
     )

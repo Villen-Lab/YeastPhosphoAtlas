@@ -22,6 +22,7 @@ usethis::use_package( "dplyr" )
 golem::add_module( name = "expression_profiles" )
 golem::add_module( name = "explore_conditions" )
 golem::add_module( name = "raw_data" )
+golem::add_module( name = "about" )
 
 ## Add helper functions ----
 ## Creates fct_* and utils_*
