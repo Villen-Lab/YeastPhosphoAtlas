@@ -7,14 +7,17 @@ License: MIT + file LICENSE
 Imports: 
     attempt,
     config (>= 0.3.1),
+    DBI,
     dplyr,
     DT,
     ggplot2,
     glue,
     golem (>= 0.3.1),
     htmltools,
+    markdown,
     pkgload,
     processx,
+    RSQLite,
     shiny (>= 1.7.1),
     stringr
 Encoding: UTF-8
