@@ -19,7 +19,7 @@ mod_expression_profiles_ui <- function(id){
           label = "Protein",
           value = "",
           width = "275px",
-          placeholder = NULL
+          placeholder = "Enter an SGD ID..."
         ),
         selectInput(
           inputId = ns("site"),
@@ -83,7 +83,7 @@ mod_expression_profiles_ui <- function(id){
 mod_expression_profiles_server <- function(id){
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
-    
+
     # Write description for user
     write_expression_profiles_description(input, output, session)
     
@@ -109,7 +109,6 @@ mod_expression_profiles_server <- function(id){
 
     # Clear condition checkboxes
     observeEvent(input$clear_all, {
-      print("Clearing")
       updateCheckboxGroupInput(session = session, 
                                inputId = "select_conditions",
                                choices = get_conditions()$code[-1],

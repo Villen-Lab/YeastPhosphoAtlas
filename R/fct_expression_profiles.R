@@ -29,14 +29,15 @@ remove_expression_profiles_description <- function(input, output, session) {
 #'
 #' @noRd
 load_protein_sites <- function(input, output, session) {
+  site_list <- list()
   if (str_length(input$protein) == 7) { # FIX
-    print(paste("Protein chosen:", input$protein))
     sites <- get_sites_by_prot_ref(input$protein)
-    site_ids <- as.list(sites$id)
-    names(site_ids) <- paste0(sites$residue, sites$position)
-    updateSelectInput(session = session, inputId = "site", 
-                      choices = c("Select 1" = 0, site_ids))
+    site_list <- as.list(sites$id)
+    names(site_list) <- paste0(sites$residue, sites$position)
   }
+  
+  updateSelectInput(session = session, inputId = "site", 
+                    choices = c("Select 1" = 0, site_list))
 }
 
 #' Build ggplot output for expression profile
@@ -130,7 +131,6 @@ render_expression_profile <- function(quants, output) {
 #' @noRd
 init_condition_checkboxes <- function(input, output, session) {
   if (input$site != "" && input$site != 0) {
-    print(paste("Site chosen:", input$site))
     # Load quant data
     quants <- get_quants_by_site_id(input$site)
     
@@ -147,7 +147,7 @@ init_condition_checkboxes <- function(input, output, session) {
 #'
 #' @noRd
 load_expression_profile <- function(input, output, session) {
-  if (!is.null(input$select_conditions)) {
+  if (!is.null(input$select_conditions) && input$site != "" && input$site != 0) {
     # Load quant data
     quants <- get_quants_by_site_id(input$site) %>%
       filter(condition %in% c("UT", input$select_conditions))
