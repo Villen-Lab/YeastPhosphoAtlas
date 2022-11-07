@@ -17,7 +17,7 @@ mod_expression_profiles_ui <- function(id){
         textInput(
           inputId = ns("protein"),
           label = "Protein",
-          value = "",
+          value = "YHR205W",
           width = "275px",
           placeholder = "Enter an SGD ID..."
         ),
@@ -89,6 +89,7 @@ mod_expression_profiles_server <- function(id){
     
     # Lookup sites to fill drop down.
     observeEvent(input$protein, {
+      clean_condition_checkboxes(input, output, session)
       load_protein_sites(input, output, session)
     })
 
@@ -109,10 +110,7 @@ mod_expression_profiles_server <- function(id){
 
     # Clear condition checkboxes
     observeEvent(input$clear_all, {
-      updateCheckboxGroupInput(session = session, 
-                               inputId = "select_conditions",
-                               choices = get_conditions()$code[-1],
-                               inline = TRUE)
+      clean_condition_checkboxes(input, output, session)
     })
     
   })
