@@ -29,6 +29,7 @@ remove_expression_profiles_description <- function(input, output, session) {
 #'
 #' @noRd
 load_protein_sites <- function(input, output, session) {
+  preloadData <- session$userData$preloadData
   site_list <- list()
   if (str_length(input$protein) == 7) { # FIX
     sites <- get_sites_by_prot_ref(input$protein)
@@ -36,8 +37,17 @@ load_protein_sites <- function(input, output, session) {
     names(site_list) <- paste0(sites$residue, sites$position)
   }
   
-  updateSelectInput(session = session, inputId = "site", 
-                    choices = c("Select 1" = 0, site_list))
+  if (input$protein=='YHR205W' && preloadData==TRUE) {
+  
+    print(site_list$S726)
+    updateSelectInput(session = session, inputId = "site", 
+                      choices = c("Select 1" = 0, site_list),
+                      selected = site_list$S726)
+    session$userData$preloadData <- FALSE
+  } else {
+    updateSelectInput(session = session, inputId = "site", 
+                      choices = c("Select 1" = 0, site_list)) 
+  }
 }
 
 #' Build ggplot output for expression profile
@@ -74,7 +84,7 @@ build_expression_profile <- function(quants) {
 #'
 #' @noRd
 render_expression_profile <- function(quants, output) {
-  remove_expression_profiles_description(input, output, session)
+  # remove_expression_profiles_description(input, output, session)
   output$expression_profile_1 <- renderPlot({})
   output$expression_profile_2 <- renderPlot({})
   output$expression_profile_3 <- renderPlot({})
@@ -139,6 +149,18 @@ init_condition_checkboxes <- function(input, output, session) {
                              inputId = "select_conditions", 
                              selected = unique(quants$condition))
   }
+}
+
+#' Clear selected condition checkboxes
+#'
+#' @param input,output,session Internal parameters for {shiny}..
+#'
+#' @noRd
+clean_condition_checkboxes <- function(input, output, session) {
+  updateCheckboxGroupInput(session = session, 
+                           inputId = "select_conditions",
+                           choices = get_conditions()$code[-1],
+                           inline = TRUE)
 }
 
 #' Load expression data and filter by selected conditions
