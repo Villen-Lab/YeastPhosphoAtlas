@@ -84,7 +84,7 @@ build_expression_profile <- function(quants) {
 #'
 #' @noRd
 render_expression_profile <- function(quants, output) {
-  remove_expression_profiles_description(input, output, session)
+  # remove_expression_profiles_description(input, output, session)
   output$expression_profile_1 <- renderPlot({})
   output$expression_profile_2 <- renderPlot({})
   output$expression_profile_3 <- renderPlot({})

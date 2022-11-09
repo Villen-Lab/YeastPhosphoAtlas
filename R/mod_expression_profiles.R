@@ -85,7 +85,7 @@ mod_expression_profiles_server <- function(id){
     ns <- session$ns
 
     # Write description for user
-    write_expression_profiles_description(input, output, session)
+    # write_expression_profiles_description(input, output, session)
     
     # Lookup sites to fill drop down.
     observeEvent(input$protein, {
