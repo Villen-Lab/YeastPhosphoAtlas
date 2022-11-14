@@ -178,3 +178,25 @@ load_expression_profile <- function(input, output, session) {
     render_expression_profile(quants, output)
   }
 }
+
+#' Write condition cheat sheet table
+#'
+#' @param input,output,session Internal parameters for {shiny}..
+#'
+#' @noRd
+write_condition_cheat_sheet <- function(input, output, session) {
+  condition_descriptions <- get_conditions() %>%
+    select(Code=code, Description=description)
+  
+  conditions_per_slice = ceiling(nrow(condition_descriptions)/3)
+  output$condition_cheat_sheet_1 <- renderTable(
+    condition_descriptions[1:conditions_per_slice,]
+    )
+  output$condition_cheat_sheet_2 <- renderTable(
+    condition_descriptions[(conditions_per_slice + 1):(2*conditions_per_slice),]
+    )
+  output$condition_cheat_sheet_3 <- renderTable(
+    condition_descriptions[(2*conditions_per_slice + 1):nrow(condition_descriptions),]
+  )
+  
+}

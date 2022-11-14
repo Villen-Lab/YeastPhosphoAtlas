@@ -72,6 +72,26 @@ mod_expression_profiles_ui <- function(id){
         ),
         width=9
       )
+    ),
+    fixedRow(
+      column(12,
+        id="condition-cheat-sheet",
+        align="center",
+        fixedRow(
+          h2("Condition Cheat Sheet")
+        ),
+        fixedRow(
+          column(4,
+            tableOutput(ns("condition_cheat_sheet_1"))
+          ),
+          column(4,
+            tableOutput(ns("condition_cheat_sheet_2"))
+          ),
+          column(4,
+            tableOutput(ns("condition_cheat_sheet_3"))
+          )
+        )
+      )
     )
   )
 }
@@ -84,8 +104,9 @@ mod_expression_profiles_server <- function(id){
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
 
-    # Write description for user
+    # Write info for user
     # write_expression_profiles_description(input, output, session)
+    write_condition_cheat_sheet(input, output, session)
     
     # Lookup sites to fill drop down.
     observeEvent(input$protein, {

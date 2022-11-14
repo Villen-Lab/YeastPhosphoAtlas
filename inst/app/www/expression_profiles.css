@@ -49,3 +49,7 @@
 #expr-prof-display-panel .shiny-plot-output {
   margin-bottom: 15px;
 }
+
+#condition-cheat-sheet {
+  font-size: 20px;
+}
