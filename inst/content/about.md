@@ -17,3 +17,4 @@ to build your ideal set.
 
 If you use the YeastPhosphoAtlas in you work, please be sure to cite:
 
+Leutert, M., Barente, A.S., Fukuda, N.K., Rodriguez-Mias, R.A., and Villen, J.  The regulatory landscape of the yeast phosphoproteome. Nat Struct Mol Biol (2023). [https://doi.org/10.1038/s41594-023-01115-3](https://doi.org/10.1038/s41594-023-01115-3)
